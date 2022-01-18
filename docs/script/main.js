@@ -6,7 +6,7 @@ const App = new Vue({
   data: {
     socket: null,
     player: null,
-    roomKeeper: localStorage.getItem('roomKeeper') ? localStorage.getItem('roomKeeper'): null,
+    roomKeeper: localStorage.getItem('roomKeeper') ? localStorage.getItem('roomKeeper') : null,
     options: {
       autoplay: 'play',
       controls: true,
@@ -52,7 +52,7 @@ const App = new Vue({
       }
       return str.substr(0, length)
     },
-    setRoomKeeper(){
+    setRoomKeeper() {
       localStorage.setItem('roomKeeper', this.roomKeeper);
     },
     addVideo() {
@@ -86,7 +86,7 @@ const App = new Vue({
       this.controlParam.time = this.player.currentTime
       this.sendMessage(this.controlParam)
     },
-    sendMessage(controlParam){
+    sendMessage(controlParam) {
       const params = JSON.stringify(controlParam)
 
       // 使用socket-io
@@ -103,10 +103,10 @@ const App = new Vue({
     },
     resultHandler(result) {
       // 只有绑定了房主 并且 收到房主消息才会执行操作
-      if(this.roomKeeper && result.user == this.roomKeeper){
+      if (this.roomKeeper && result.user == this.roomKeeper) {
         switch (result.action) {
           case "play":
-            if(this.player.currentSrc() != result.content){
+            if (this.player.currentSrc() != result.content) {
               this.player.src({
                 src: result.content,
               })
@@ -115,7 +115,7 @@ const App = new Vue({
             this.player.currentTime(result.time + 0.2) //播放时+0.2秒，抵消网络延迟
             break
           case "pause":
-            if(this.player.currentSrc() != result.content){
+            if (this.player.currentSrc() != result.content) {
               this.player.src({
                 src: result.content,
               })
@@ -124,7 +124,7 @@ const App = new Vue({
             this.player.currentTime(result.time)
             break
           case "seek":
-            if(this.player.currentSrc() != result.content){
+            if (this.player.currentSrc() != result.content) {
               this.player.src({
                 src: result.content,
               })
@@ -163,15 +163,15 @@ const App = new Vue({
     this.userId = this.userId ? this.userId : this.randomString(10);
     localStorage.setItem('userId', this.userId);
 
-    
+
 
     this.controlParam.user = this.userId
   },
   mounted() {
 
     this.player = videojs("video");
-    
-    this.player.on("pause", ()=>{
+
+    this.player.on("pause", () => {
       this.playing = false;
       this.controlParam.action = 'pause';
       this.controlParam.content = this.player.currentSrc();
@@ -179,7 +179,7 @@ const App = new Vue({
       this.sendMessage(this.controlParam);
     })
 
-    this.player.on("play", ()=>{
+    this.player.on("play", () => {
       this.playing = true;
       this.controlParam.action = 'play';
       this.controlParam.content = this.player.currentSrc();
@@ -187,12 +187,18 @@ const App = new Vue({
       this.sendMessage(this.controlParam)
     })
 
-    this.player.on("ended", ()=>{
+    this.player.on("ended", () => {
 
     })
 
     /*使用socket-io*/
-    this.socket = io('https://api.cblueu.cn:2233'); // 替换成你的websocket服务地址
+    this.socket = io('https://api.cblueu.cn:2233',
+      {
+        withCredentials: true,
+        extraHeaders: {
+        }
+      }
+    ); // 替换成你的websocket服务地址
     this.socket.on('video-control', (res) => {
       const result = JSON.parse(res);
       console.log(result);
@@ -321,5 +327,5 @@ const App = new Vue({
     // this.player.addEventListener('pause', () => {
     //   this.playing = false
     // })
-  } 
+  }
 })
