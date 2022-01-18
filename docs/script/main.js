@@ -192,7 +192,7 @@ const App = new Vue({
     })
 
     /*使用socket-io*/
-    this.socket = io('http://10.8.248.117:2233'); // 替换成你的websocket服务地址
+    this.socket = io('http://api.cblueu.cn:2233'); // 替换成你的websocket服务地址
     this.socket.on('video-control', (res) => {
       const result = JSON.parse(res);
       console.log(result);
