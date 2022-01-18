@@ -6,7 +6,7 @@
 
 # 演示demo:
 
-web版同步效果
+web版同步效果1
 
 ![wI60je.gif](https://s1.ax1x.com/2020/09/19/wI60je.gif)
 
