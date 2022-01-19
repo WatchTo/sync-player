@@ -34,7 +34,9 @@
         </div>
         <div class="video-control-wrapper">
             <a class="view-btn" href="/movie/">浏览目录</a>
-            <p class="userid">你的ID是：{{userId}}</p>
+            <p class="userid">你的ID是：{{userId}} 
+                <a href="javascript:;" class="button-play" @click="doCopy(userId)">复制邀请链接</a>
+            </p>
             <div class="address-input">
                 <input v-model="roomKeeper" type="text" placeholder="房主ID">
                 <a href="javascript:;" class="submit-btn" @click="setRoomKeeper">绑定房主</a>

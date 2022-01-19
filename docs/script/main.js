@@ -4,6 +4,7 @@ const App = new Vue({
   el: '#app',
   template: '#template',
   data: {
+    inviteLink: null,
     socket: null,
     player: null,
     roomKeeper: localStorage.getItem('roomKeeper') ? localStorage.getItem('roomKeeper') : null,
@@ -43,8 +44,21 @@ const App = new Vue({
     appId: '*******************',
     appKey: '*******************',
     server: 'https://*******************.***.com', // REST API 服务器地址
+
+    urlParams: null,
   },
   methods: {
+    async doCopy(userId){
+      if(window.location.href.indexOf('?') != -1){
+        this.inviteLink = window.location.href.substring(0, window.location.href.indexOf('?'))
+      }else{
+        this.inviteLink = window.location.href;
+      }
+      this.inviteLink += '?room=';
+      this.inviteLink += userId;
+      navigator.clipboard.writeText(this.inviteLink);
+      alert("复制完成");
+    },
     randomString(length) {
       let str = ''
       for (let i = 0; i < length; i++) {
@@ -163,7 +177,11 @@ const App = new Vue({
     this.userId = this.userId ? this.userId : this.randomString(10);
     localStorage.setItem('userId', this.userId);
 
-
+    this.urlParams = new URLSearchParams(window.location.search);
+    this.room = this.urlParams.get("room");
+    if(this.room){
+      this.roomKeeper = this.room;
+    }
 
     this.controlParam.user = this.userId
   },
@@ -207,6 +225,8 @@ const App = new Vue({
       }
     });
 
+    
+    
     /* 使用GoEasy*/
 
     // /* 创建GoEasy连接*/
