@@ -1,60 +1,10 @@
-<html lang="zh-cn">
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0"/>
-    <title>sync-player</title>
-    <link rel="icon" href="./favicon.png">
-    <link rel="stylesheet" href="./style/reset.css">
-    <link rel="stylesheet" href="./style/coplay.css">
-    <link href="https://vjs.zencdn.net/7.17.0/video-js.css" rel="stylesheet" />
+<meta charset="UTF-8">
+<title>这是一个HTML5的网页</title>
 </head>
 <body>
-<div id="app"></div>
+<p>Hello HTML5</p>
 </body>
-<script src="https://vjs.zencdn.net/7.17.0/video.min.js"></script>
-<script src="https://unpkg.com/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js"></script>
-<script src="./script/vue.min.js"></script>
-<script src="./script/socket.io.js"></script>
-<script type="text/x-template" id="template">
-    <div class="video-container">
-        <div class="video-box">
-            <h2 class="video-name"></h2>
-            <video
-                id="video"
-                class="video-js"
-                controls
-                preload="auto"
-                style="width: 100%;"
-                data-setup="{}"
-            >
-            <source src="https://v10.dious.cc/20220111/lFlCT7v2/index.m3u8" type="application/x-mpegURL">
-            </video>
-        </div>
-        <div class="video-control-wrapper">
-            <a class="view-btn" href="/movie/">浏览目录</a>
-            <p class="userid">你的ID是：{{userId}} 
-                <a href="javascript:;" class="button-play" @click="doCopy(userId)">复制邀请链接</a>
-            </p>
-            <div class="address-input">
-                <input v-model="roomKeeper" type="text" placeholder="房主ID">
-                <a href="javascript:;" class="submit-btn" @click="setRoomKeeper">绑定房主</a>
-            </div>
-            <div class="address-input">
-                <input v-model="videoSrc" type="text" placeholder="视频地址">
-                <a href="javascript:;" class="submit-btn" @click="addVideo">添加视频</a>
-            </div>
-            <h2 class="video-list-title">视频列表：</h2>
-            <ul class="video-list">
-                <li class="video-item" v-for="(videoItem,index) in videoList" :key="index">
-                    <p class="video-name">{{videoItem}}</p>
-                    <div class="button-box">
-                        <a href="javascript:;" class="button-play" @click="playVideoItem(videoItem)">播放</a>
-                        <a href="javascript:;" class="button-play" @click="deleteVideoItem(index)">删除</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</script>
-<script src="./script/main.js"></script>
 </html>
