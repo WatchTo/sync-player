@@ -1,5 +1,3 @@
-const { Realtime, TextMessage } = AV
-
 const App = new Vue({
   el: '#app',
   template: '#template',
