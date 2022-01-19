@@ -169,7 +169,7 @@ const App = new Vue({
   },
   mounted() {
 
-    this.player = videojs("video");
+    this.player = videojs("video", {controls: true});
 
     this.player.on("pause", () => {
       this.playing = false;
